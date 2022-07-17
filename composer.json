@@ -1,5 +1,5 @@
 {
-    "name": "bezhansalleh/filament-shield",
+    "name": "luilliarcec/filament-shield",
     "description": "Filament support for `spatie/laravel-permission`.",
     "keywords": [
         "bezhanSalleh",
@@ -16,6 +16,11 @@
     "homepage": "https://github.com/bezhansalleh/filament-shield",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Luis Arce",
+            "email": "luilliarcec@gmail.com",
+            "role": "Developer"
+        },
         {
             "name": "Bezhan Salleh",
             "email": "bezhan_salleh@yahoo.com",
@@ -39,12 +44,6 @@
     "autoload": {
         "psr-4": {
             "BezhanSalleh\\FilamentShield\\": "src",
-            "BezhanSalleh\\FilamentShield\\Database\\Factories\\": "database/factories"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "BezhanSalleh\\FilamentShield\\Tests\\": "tests"
         }
     },
     "scripts": {

@@ -15,6 +15,10 @@ class FilamentShieldServiceProvider extends PluginServiceProvider
         RoleResource::class,
     ];
 
+    public array $commands = [
+
+    ];
+
     public function configurePackage(Package $package): void
     {
         parent::configurePackage($package);
@@ -22,29 +26,7 @@ class FilamentShieldServiceProvider extends PluginServiceProvider
         $package
             ->hasConfigFile('filament-shield')
             ->hasTranslations()
-            ->hasViews()
             ->hasCommands($this->getCommands());
-    }
-
-    public function packageBooted(): void
-    {
-        parent::packageBooted();
-
-        if (config('filament-shield.register_role_policy')) {
-            Gate::policy('Spatie\Permission\Models\Role', 'App\Policies\RolePolicy');
-        }
-    }
-
-    protected function getCommands(): array
-    {
-        return [
-            Commands\MakeCreateShieldCommand::class,
-            Commands\MakeInstallShieldCommand::class,
-            Commands\MakePublishShieldCommand::class,
-            Commands\MakeUpgradeShieldCommand::class,
-            Commands\MakeGenerateShieldCommand::class,
-            Commands\MakeSuperAdminShieldCommand::class,
-        ];
     }
 
     protected function getResources(): array
