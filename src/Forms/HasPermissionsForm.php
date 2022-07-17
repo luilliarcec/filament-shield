@@ -17,7 +17,7 @@ trait HasPermissionsForm
 
     protected static function getPermissionsSection(): Forms\Components\Section
     {
-        return Forms\Components\Section::make(__('Permissions'))
+        return Forms\Components\Section::make(__('filament-shield::filament-shield.section'))
             ->schema([
                 Forms\Components\Tabs::make('Permissions')
                     ->tabs([
