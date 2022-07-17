@@ -43,7 +43,7 @@
     },
     "autoload": {
         "psr-4": {
-            "BezhanSalleh\\FilamentShield\\": "src",
+            "Luilliarcec\\FilamentShield\\": "src"
         }
     },
     "scripts": {
@@ -57,7 +57,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "BezhanSalleh\\FilamentShield\\FilamentShieldServiceProvider"
+                "Luilliarcec\\FilamentShield\\FilamentShieldServiceProvider"
             ]
         }
     },
