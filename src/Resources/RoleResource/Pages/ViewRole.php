@@ -1,9 +1,9 @@
 <?php
 
-namespace BezhanSalleh\FilamentShield\Resources\RoleResource\Pages;
+namespace Luilliarcec\FilamentShield\Resources\RoleResource\Pages;
 
 use Filament\Resources\Pages\ViewRecord;
-use BezhanSalleh\FilamentShield\Resources\RoleResource;
+use Luilliarcec\FilamentShield\Resources\RoleResource;
 
 class ViewRole extends ViewRecord
 {
