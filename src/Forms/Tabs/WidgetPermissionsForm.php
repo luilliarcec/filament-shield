@@ -13,7 +13,7 @@ trait WidgetPermissionsForm
     protected static function getWidgetTabs(): array
     {
         return [
-            Forms\Components\Tabs\Tab::make(__('Widgets'))
+            Forms\Components\Tabs\Tab::make(__('filament-shield::filament-shield.tabs.widgets'))
                 ->visible(static::getWidgetEntities()->isNotEmpty())
                 ->reactive()
                 ->schema([

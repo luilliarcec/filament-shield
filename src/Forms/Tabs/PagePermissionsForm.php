@@ -13,7 +13,7 @@ trait PagePermissionsForm
     protected static function getPageTabs(): array
     {
         return [
-            Forms\Components\Tabs\Tab::make(__('Pages'))
+            Forms\Components\Tabs\Tab::make(__('filament-shield::filament-shield.tabs.pages'))
                 ->visible(static::getPageEntities()->isNotEmpty())
                 ->reactive()
                 ->schema([

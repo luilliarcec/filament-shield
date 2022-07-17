@@ -43,11 +43,14 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'section' => 'Entities',
-    'resources' => 'Resources',
-    'widgets' => 'Widgets',
-    'pages' => 'Pages',
-    'custom' => 'Custom Permissions',
+    'section' => 'Permissions',
+    'tabs' => [
+        'resources' => 'Resources',
+        'widgets' => 'Widgets',
+        'pages' => 'Pages',
+        'custom' => 'Custom Permissions',
+        'auth' => 'Security',
+    ],
 
     /*
     |--------------------------------------------------------------------------

@@ -11,7 +11,7 @@ trait CustomPermissionsForm
     protected static function getCustomPermissionTabs(): array
     {
         return [
-            Forms\Components\Tabs\Tab::make(__('Custom permissions'))
+            Forms\Components\Tabs\Tab::make(__('filament-shield::filament-shield.tabs.custom'))
                 ->visible(static::getCustomEntities()->isNotEmpty())
                 ->reactive()
                 ->schema([

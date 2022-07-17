@@ -43,11 +43,14 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'section' => 'Entidades',
-    'resources' => 'Recursos',
-    'widgets' => 'Widgets',
-    'pages' => 'Páginas',
-    'custom' => 'Permisos personalizados',
+    'section' => 'Permisos',
+    'tabs' => [
+        'resources' => 'Recursos',
+        'widgets' => 'Widgets',
+        'pages' => 'Páginas',
+        'custom' => 'Permisos personalizados',
+        'auth' => 'Seguridad',
+    ],
 
     /*
     |--------------------------------------------------------------------------
