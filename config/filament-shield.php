@@ -4,7 +4,7 @@ use Luilliarcec\FilamentShield\Resources;
 
 return [
     'resources' => [
-        'roles' => Resources\RoleResource::class
+        'role' => Resources\RoleResource::class
     ],
 
     'roles' => [
