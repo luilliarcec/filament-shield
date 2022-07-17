@@ -57,7 +57,7 @@ class ShieldPolicyMakeCommands extends PolicyMakeCommand
 
     protected function getPath($name): string
     {
-        return str($this->laravel['path'])->beforeLast('/').'/'.str_replace('\\', '/', $name).'.php';
+        return str($this->laravel['path'])->beforeLast(DIRECTORY_SEPARATOR).'/'.str_replace('\\', '/', $name).'.php';
     }
 
     protected function rootNamespace(): string
