@@ -21,12 +21,12 @@ return [
 
     'suffixes' => [
         'resource' => [
-            'view',
             'view_any',
+            'view',
             'create',
+            'update',
             'delete',
             'delete_any',
-            'update',
             'restore',
         ],
         'page' => 'view',
