@@ -134,12 +134,12 @@ class RoleResource extends Resource implements FilamentShield\Contracts\HasResou
     public static function permissions(): array
     {
         return [
-            'view',
             'view_any',
+            'view',
             'create',
+            'update',
             'delete',
             'delete_any',
-            'update',
         ];
     }
 }
