@@ -27,7 +27,7 @@ class ShieldFactory
 
     protected static function giveSuperAdminPermission(string|array|Collection $permissions): void
     {
-        $model = config('permission.models.permission');
+        $model = config('permission.models.role');
 
         $role = $model::firstOrCreate(
             ['name' => 'super_admin'],
