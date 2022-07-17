@@ -51,6 +51,8 @@ return [
         'pages' => 'Páginas',
         'custom' => 'Permisos personalizados',
         'auth' => 'Seguridad',
+
+        // ...
     ],
 
     /*
@@ -63,6 +65,8 @@ return [
         'activity' => 'Auditoría',
         'role' => 'Rol',
         'user' => 'Usuario',
+
+        // ...
     ],
 
     'checkboxes' => [
@@ -76,12 +80,16 @@ return [
             'restore' => 'Restaurar',
             'restore_any' => 'Restaurar Algunos',
             'export' => 'Exportar',
+
+            // ...
         ],
 
         'pages' => [
             'backups' => 'Respaldos',
             'health_application' => 'Salud de la aplicación',
             'telescope' => 'Telescope',
+
+            // ...
         ],
     ],
 
