@@ -48,8 +48,11 @@ trait PagePermissionsForm
         return static::getPageEntities()
             ->reduce(
                 function ($pages, $page, $name) {
-                    $label = Str::of($page::getResourceName())
-                        ->headline();
+                    $label = trans()->has(
+                        $key = 'filament-shield::filament-shield.checkboxes.pages.'.$page::getResourceName()
+                    )
+                        ? __($key)
+                        : Str::headline($page::getResourceName());
 
                     $pages[] = static::schemaForNotResourcePermissions($name, $label);
 

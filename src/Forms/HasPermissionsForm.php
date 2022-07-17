@@ -185,7 +185,7 @@ trait HasPermissionsForm
         return Forms\Components\Grid::make()
             ->schema([
                 Forms\Components\Checkbox::make($name)
-                    ->label(__($label))
+                    ->label($label)
                     ->inline()
                     ->afterStateHydrated(function (Closure $set, Closure $get, $record) use ($name) {
                         if (is_null($record)) {
