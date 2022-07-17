@@ -33,7 +33,11 @@ trait ResourcePermissionsForm
             ->groupBy(fn($resource) => $resource::getModuleName())
             ->reduce(
                 function ($tabs, $resources, $module) {
-                    $tabs[] = Forms\Components\Tabs\Tab::make(__(Str::headline($module)))
+                    $label = trans()->has($key = 'filament-shield::filament-shield.tabs.'.$module)
+                        ? __($key)
+                        : Str::headline($module);
+
+                    $tabs[] = Forms\Components\Tabs\Tab::make($label)
                         ->visible($resources->isNotEmpty())
                         ->reactive()
                         ->schema([
@@ -63,13 +67,19 @@ trait ResourcePermissionsForm
         return $resources
             ->reduce(
                 function ($cards, $resource) {
+                    $label = trans()->has(
+                        $key = 'filament-shield::filament-shield.toggles.'.$resource::getResourceName()
+                    )
+                        ? __($key)
+                        : Str::headline($resource::getResourceName());
+
                     $cards[] = Forms\Components\Card::make()
                         ->schema([
                             Forms\Components\Toggle::make($resource::getModuleResourceName())
                                 ->onIcon('heroicon-s-lock-open')
                                 ->offIcon('heroicon-s-lock-closed')
                                 ->reactive()
-                                ->label(__(Str::headline($resource::getResourceName())))
+                                ->label($label)
                                 ->afterStateUpdated(
                                     function (Closure $set, Closure $get, $state) use ($resource) {
                                         collect($resource::permissions())->each(
@@ -87,7 +97,7 @@ trait ResourcePermissionsForm
                                 )
                                 ->dehydrated(false),
 
-                            Forms\Components\Fieldset::make(__('Permissions'))
+                            Forms\Components\Fieldset::make(__('filament-shield::filament-shield.fieldset'))
                                 ->extraAttributes([
                                     'class' => 'text-primary-600',
                                     'style' => 'border-color:var(--primary)'
@@ -128,7 +138,7 @@ trait ResourcePermissionsForm
                     $permission = $resource::getPermissionName($suffix);
 
                     $checkboxes[] = Forms\Components\Checkbox::make($permission)
-                        ->label(__('filament-shield::filament-shield.permissions.suffixes.'.$suffix))
+                        ->label(__('filament-shield::filament-shield.checkboxes.resources.'.$suffix))
                         ->extraAttributes(['class' => 'text-primary-600'])
                         ->afterStateHydrated(
                             function (Closure $set, Closure $get, $record) use ($permission, $entity, $resource) {

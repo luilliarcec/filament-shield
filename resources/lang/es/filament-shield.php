@@ -44,6 +44,7 @@ return [
     */
 
     'section' => 'Permisos',
+    'fieldset' => 'Permisos',
     'tabs' => [
         'resources' => 'Recursos',
         'widgets' => 'Widgets',
@@ -54,22 +55,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Messages
+    | Toggles & Checkboxes
     |--------------------------------------------------------------------------
     */
 
-    'forbidden' => 'Usted no tiene permiso de acceso',
-    'update' => '¡La configuración del Shield ha sido renovada!',
-    'generate' => '¡La configuración del Shield ha sido renovada y se han generado los permisos y/o políticas!',
+    'toggles' => [
+        'activity' => 'Auditoría',
+        'role' => 'Rol',
+        'user' => 'Usuario',
+    ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Shield Replacements
-    |--------------------------------------------------------------------------
-    */
-
-    'permissions' => [
-        'suffixes' => [
+    'checkboxes' => [
+        'resources' => [
             'view' => 'Ver',
             'view_any' => 'Ver Algunos',
             'create' => 'Crear',
@@ -81,16 +78,20 @@ return [
             'export' => 'Exportar',
         ],
 
-        'resources' => [
-            'activity' => 'Auditoría',
-            'role' => 'Rol',
-            'user' => 'Usuario',
-        ],
-
         'pages' => [
             'backups' => 'Respaldos',
             'health_application' => 'Salud de la aplicación',
             'telescope' => 'Telescope',
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Messages
+    |--------------------------------------------------------------------------
+    */
+
+    'forbidden' => 'Usted no tiene permiso de acceso',
+    'update' => '¡La configuración del Shield ha sido renovada!',
+    'generate' => '¡La configuración del Shield ha sido renovada y se han generado los permisos y/o políticas!',
 ];

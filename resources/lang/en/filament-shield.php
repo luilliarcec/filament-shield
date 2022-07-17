@@ -44,6 +44,7 @@ return [
     */
 
     'section' => 'Permissions',
+    'fieldset' => 'Permissions',
     'tabs' => [
         'resources' => 'Resources',
         'widgets' => 'Widgets',
@@ -54,22 +55,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Messages
+    | Toggles & Checkboxes
     |--------------------------------------------------------------------------
     */
 
-    'forbidden' => 'You do not have permission to access',
-    'update' => 'Renewed Shield\'s Config!',
-    'generate' => 'Renewed Shield\'s Config & Generated Permissions w/o Policies!',
+    'toggles' => [
+        'activity' => 'Audit',
+        'role' => 'Role',
+        'user' => 'User',
+    ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Shield Replacements
-    |--------------------------------------------------------------------------
-    */
-
-    'shield' => [
-        'suffixes' => [
+    'checkboxes' => [
+        'resources' => [
             'view' => 'View',
             'view_any' => 'View Any',
             'create' => 'Create',
@@ -81,16 +78,20 @@ return [
             'export' => 'Export',
         ],
 
-        'resources' => [
-            'activity' => 'Audit',
-            'role' => 'Role',
-            'user' => 'User',
-        ],
-
         'pages' => [
             'backups' => 'Backups',
             'health_application' => 'Health application',
             'telescope' => 'Telescope',
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Messages
+    |--------------------------------------------------------------------------
+    */
+
+    'forbidden' => 'You do not have permission to access',
+    'update' => 'Renewed Shield\'s Config!',
+    'generate' => 'Renewed Shield\'s Config & Generated Permissions w/o Policies!',
 ];
