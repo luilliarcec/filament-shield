@@ -1,6 +1,6 @@
 <?php
 
-use BezhanSalleh\FilamentShield\Resources;
+use Luilliarcec\FilamentShield\Resources;
 
 return [
     'resources' => [
