@@ -1,0 +1,5 @@
+
+    public function {{ method }}(User $user{{ parameters }}): Response|bool
+    {
+        return $user->can('{{ permission }}');
+    }
