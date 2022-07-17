@@ -89,13 +89,19 @@ trait HasPermissionsForm
             });
 
         static::getPageEntities()
-            ->each(fn($page, $entity) => $set($entity, $state));
+            ->each(function ($page, $entity) use ($set, $state) {
+                $set($entity, $state);
+            });
 
         static::getWidgetEntities()
-            ->each(fn($widget, $entity) => $set($entity, $state));
+            ->each(function ($widget, $entity) use ($set, $state) {
+                $set($entity, $state);
+            });
 
         static::getCustomEntities()
-            ->each(fn($name) => $set($name, $state));
+            ->each(function ($name) use ($set, $state) {
+                $set($name, $state);
+            });
     }
 
     /**
