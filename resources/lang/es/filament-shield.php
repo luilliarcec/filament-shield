@@ -79,14 +79,14 @@ return [
         ],
 
         'resources' => [
-            'activity' => 'Audit',
-            'role' => 'Role',
-            'user' => 'User',
+            'activity' => 'Auditoría',
+            'role' => 'Rol',
+            'user' => 'Usuario',
         ],
 
         'pages' => [
-            'backups' => 'Backups',
-            'health_application' => 'Health application',
+            'backups' => 'Respaldos',
+            'health_application' => 'Salud de la aplicación',
             'telescope' => 'Telescope',
         ],
     ],
