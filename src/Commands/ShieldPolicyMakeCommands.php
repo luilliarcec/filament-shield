@@ -10,8 +10,6 @@ class ShieldPolicyMakeCommands extends PolicyMakeCommand
 {
     protected $name = 'shield:policy';
 
-    protected $signature = 'shield:policy';
-
     protected function buildClass($name): string
     {
         $resource = $this->option('resource');
