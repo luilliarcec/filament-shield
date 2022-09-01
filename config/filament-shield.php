@@ -32,4 +32,11 @@ return [
         'page' => 'view',
         'widget' => 'view',
     ],
+
+    'dont_modules' => [
+        'app',
+        'src',
+        'domain',
+        'manages',
+    ]
 ];

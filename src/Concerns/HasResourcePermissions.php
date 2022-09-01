@@ -22,11 +22,19 @@ trait HasResourcePermissions
 
     public static function getModuleName(): string
     {
-        $labels = explode('\\', static::class);
+        $labels = array_reverse(explode('\\', static::class));
 
-        return Str::of($labels[count($labels) - 2])
-            ->snake()
-            ->lower();
+        array_shift($labels);
+
+        foreach ($labels as $label) {
+            $label = Str::of($label)->snake()->lower();
+
+            if (! in_array($label, config('filament-shield.dont_modules'))) {
+                break;
+            }
+        }
+
+        return $label ?? __('Unknown');
     }
 
     public static function getResourceName(): string
