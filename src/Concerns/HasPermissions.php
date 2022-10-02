@@ -53,6 +53,9 @@ trait HasPermissions
 
     public static function getPermissionLabel(): string
     {
-        return static::getPermissionPrefix();
+        return Str::of(static::getPermissionPrefix())
+            ->replace('_', ' ')
+            ->replace('-', ' - ')
+            ->title();
     }
 }
