@@ -44,7 +44,7 @@ trait HasPermissionsForm
     protected static function refreshSelectAllStateViaEntities(Closure $set, Closure $get): void
     {
         $states = static::getResourceEntities()
-            ->map(fn($resource, $entity) => (bool)$get($resource::getModuleResourceName()));
+            ->map(fn($resource, $entity) => (bool)$get($resource::getPermissionPrefix()));
 
         $states = static::getPageEntities()
             ->map(fn($page, $entity) => (bool)$get($entity))
@@ -79,7 +79,7 @@ trait HasPermissionsForm
     {
         static::getResourceEntities()
             ->each(function ($resource, $entity) use ($set, $state) {
-                $set($resource::getModuleResourceName(), $state);
+                $set($resource::getPermissionPrefix(), $state);
 
                 collect($resource::permissions())->each(
                     function ($suffix) use ($resource, $set, $state) {
