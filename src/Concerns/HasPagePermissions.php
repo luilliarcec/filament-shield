@@ -9,7 +9,7 @@ trait HasPagePermissions
 {
     use HasPermissions;
 
-    public function mount(): void
+    public function initializeHasPagePermissions(): void
     {
         abort_unless(static::canView(), 403);
     }
@@ -22,6 +22,11 @@ trait HasPagePermissions
     protected function configureAction(Action $action): void
     {
         $action->authorize(static::canView());
+    }
+
+    public function beforeValidate(): void
+    {
+        abort_unless(static::canView(), 403);
     }
 
     public static function canView(): bool
