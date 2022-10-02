@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Luilliarcec\FilamentShield;
 use Luilliarcec\FilamentShield\Resources\RoleResource\Pages;
 
-class RoleResource extends Resource implements FilamentShield\Contracts\HasResourcePermissions
+class RoleResource extends Resource implements FilamentShield\Contracts\HasPermissions
 {
     use FilamentShield\Forms\HasPermissionsForm;
     use FilamentShield\Concerns\HasResourcePermissions;
