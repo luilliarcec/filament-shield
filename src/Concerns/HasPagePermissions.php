@@ -11,7 +11,7 @@ trait HasPagePermissions
     {
         $this->beforeBooted();
 
-        if (!static::canView()) {
+        if (! static::canView()) {
             $this->notify('warning', __('filament-shield::filament-shield.forbidden'));
 
             $this->beforeShieldRedirects();
