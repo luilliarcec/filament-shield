@@ -1,16 +1,12 @@
-<a href="https://github.com/bezhansalleh/filament-shield">
-<img style="width: 100%; max-width: 100%;" alt="filament-shield-art" src="https://user-images.githubusercontent.com/10007504/148662315-35d4bd74-fc1c-4f8c-8c02-689309b414b0.png" >
-</a>
-
-<hr style="background-color: #ebb304">
-
 # Filament Shield
-The easiest and most intuitive way to add access management to your Filament Admin:
-- :fire: **Resources** 
-- :fire: **Pages** 
-- :fire: **Widgets** 
 
-<!-- One Plugin to rule them all, One Plugin to find them, One Plugin to bring them all, and in the light bind them, In the Land of Filament where building them is really fun! -->
+The easiest and most intuitive way to add access management to your Filament Admin:
+
+- :fire: **Resources**
+- :fire: **Pages**
+- :fire: **Widgets**
+
+Fork from [bezhanSalleh/filament-shield](https://github.com/bezhanSalleh/filament-shield)
 
 ## Support Filament
 
@@ -20,45 +16,95 @@ The easiest and most intuitive way to add access management to your Filament Adm
 
 ## Installation
 
-1. Install the package via composer:
+Install the package via composer:
 
 ```bash
 composer require luilliarcec/filament-shield
 ```
 
-2. Publish the config file with:
+Publish the config file with:
 
 ```bash
 php artisan vendor:publish --tag="filament-shield-config"
 ```
 
-3. Configure your options
+Configure your options
 
 ```php
 <?php
 
 return [
+    /*
+     * Predefined resource to handle system roles, you can replace it with your own.
+     */
     'resources' => [
         'role' => Resources\RoleResource::class
     ],
 
+    /*
+     * System roles, enable them to your liking.
+     */
+    'roles' => [
+        'super_admin' => [
+            'enabled' => true,
+            'role_name' => 'super_admin',
+        ],
+
+        'filament_user' => [
+            'enabled' => false,
+            'role_name' => 'filament_user',
+        ],
+    ],
+
+    /**
+     * Default global permissions are defined here, however you are free to change
+     * them from your filament `resource`, `page` or `widget`.
+     */
     'suffixes' => [
         'resource' => [
-            'view',
             'view_any',
+            'view',
             'create',
+            'update',
             'delete',
             'delete_any',
-            'update',
             'restore',
         ],
         'page' => 'view',
         'widget' => 'view',
     ],
+
+    /**
+     * The package uses a wildcard format with "-" instead of dots, due to the representation of objects
+     * that livewire gives you, when using this format, the package discovers the segments
+     * from the namespace of the filament `resource`, `page` or `widget`.
+     *
+     * {module}.{resource}.{action} => {module}-{resource}-{action}
+     *
+     * Filament
+     *   - Resources
+     *     - Security
+     *       - RoleResource.php
+     *
+     * App\Filament\Resources\Security\RoleResource
+     *
+     * Ex.: security-role-view_any
+     */
+
+    'dont_modules' => [
+        'src',
+        'domain',
+        'manages',
+        'app',
+        'filament',
+        'resources',
+        'pages',
+        'widgets',
+    ]
 ];
 ```
 
-4. Add the `Spatie\Permission\Traits\HasRoles` trait to your User model(s):
+Add the `Spatie\Permission\Traits\HasRoles` trait to your User model(s):
 
 ```php
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -72,11 +118,67 @@ class User extends Authenticatable
 }
 ```
 
-5. Now run the following command to set up everything:
+If you want to generate your permissions, along with the policy, use the following command:
 
 ```bash
 php artisan shield:generate
 ```
+
+The package is smart enough to generate the policies in the same namespace
+as your model associated with the filament resource.
+
+To make use of this package, each `resource`, `page` or `widget` must implement the following contract.
+
+`Luilliarcec\FilamentShield\Contracts\HasPermissions`
+
+```php
+use Filament\Resources\Resource;
+use Luilliarcec\FilamentShield\Contracts\HasPermissions;
+
+class RoleResource extends Resource implements HasPermissions
+{
+    // 
+}
+```
+
+You must implement each of the methods or if you like you can use the traits for each case, `resource`, `page` or `
+widget.
+
+```php
+use Filament\Resources\Resource;
+use Luilliarcec\FilamentShield\Contracts\HasPermissions
+use Luilliarcec\FilamentShield\Concerns\HasResourcePermissions;
+
+class RoleResource extends Resource implements HasPermissions
+{
+    use HasResourcePermissions;
+}
+```
+
+If you want to add or remove permissions to your resource for generation, you can override the permissions method.
+
+```php
+use Filament\Resources\Resource;
+use Luilliarcec\FilamentShield\Contracts\HasPermissions
+use Luilliarcec\FilamentShield\Concerns\HasResourcePermissions;
+
+class RoleResource extends Resource implements HasPermissions
+{
+    use HasResourcePermissions;
+    
+    //
+
+    public static function permissions(): array|string
+    {
+        return [
+            'view_any',
+            'export'
+        ];
+    }
+}
+```
+
+Now this resource will only have two permissions.
 
 
 ## Changelog
