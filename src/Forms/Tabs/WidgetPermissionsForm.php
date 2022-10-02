@@ -30,7 +30,7 @@ trait WidgetPermissionsForm
     protected static function getWidgetEntities(): ?Collection
     {
         return collect(Filament::getWidgets())
-            ->filter(fn($widget) => in_array(HasPermissions::class, class_implements($widget)))
+            ->filter(fn ($widget) => in_array(HasPermissions::class, class_implements($widget)))
             ->reduce(
                 function ($widgets, $widget) {
                     $name = $widget::getPermissionName();

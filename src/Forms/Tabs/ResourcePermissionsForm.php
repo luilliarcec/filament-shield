@@ -19,7 +19,7 @@ trait ResourcePermissionsForm
     protected static function getResourceEntities(): ?Collection
     {
         return collect(Filament::getResources())
-            ->filter(fn($resource) => in_array(HasPermissions::class, class_implements($resource)));
+            ->filter(fn ($resource) => in_array(HasPermissions::class, class_implements($resource)));
     }
 
     /**
@@ -30,7 +30,7 @@ trait ResourcePermissionsForm
     public static function getResourceTabs(): array
     {
         return static::getResourceEntities()
-            ->groupBy(fn($resource) => $resource::getModuleName())
+            ->groupBy(fn ($resource) => $resource::getModuleName())
             ->reduce(
                 function ($tabs, $resources, $module) {
                     $label = trans()->has($key = 'filament-shield::filament-shield.tabs.'.$module)
@@ -88,7 +88,7 @@ trait ResourcePermissionsForm
                                             }
                                         );
 
-                                        if (!$state) {
+                                        if (! $state) {
                                             $set('select_all', false);
                                         }
 
@@ -157,14 +157,14 @@ trait ResourcePermissionsForm
                         ->afterStateUpdated(function (Closure $set, Closure $get, $state) use ($entity, $resource) {
                             static::refreshResourceEntityStateAfterUpdate($set, $get, $entity, $resource);
 
-                            if (!$state) {
+                            if (! $state) {
                                 $set($entity, false);
                                 $set('select_all', false);
                             }
 
                             static::refreshSelectAllStateViaEntities($set, $get);
                         })
-                        ->dehydrated(fn($state): bool => $state);
+                        ->dehydrated(fn ($state): bool => $state);
 
                     return $checkboxes;
                 },

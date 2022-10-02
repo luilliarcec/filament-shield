@@ -23,16 +23,16 @@ class ShieldPermissionsMakeCommand extends Command
     protected function generate()
     {
         collect(Filament::getResources())
-            ->filter(fn($resource) => in_array(HasPermissions::class, class_implements($resource)))
-            ->each(fn($resource) => $this->fromResource($resource));
+            ->filter(fn ($resource) => in_array(HasPermissions::class, class_implements($resource)))
+            ->each(fn ($resource) => $this->fromResource($resource));
 
         collect(Filament::getPages())
-            ->filter(fn($page) => in_array(HasPermissions::class, class_implements($page)))
-            ->each(fn($page) => $this->fromPages($page));
+            ->filter(fn ($page) => in_array(HasPermissions::class, class_implements($page)))
+            ->each(fn ($page) => $this->fromPages($page));
 
         collect(Filament::getWidgets())
-            ->filter(fn($widget) => in_array(HasPermissions::class, class_implements($widget)))
-            ->each(fn($widget) => $this->fromWidgets($widget));
+            ->filter(fn ($widget) => in_array(HasPermissions::class, class_implements($widget)))
+            ->each(fn ($widget) => $this->fromWidgets($widget));
     }
 
     protected function fromResource($resource)

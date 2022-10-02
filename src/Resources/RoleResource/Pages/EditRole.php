@@ -18,7 +18,7 @@ class EditRole extends EditRecord
     {
         $this->permissions = collect($data)
             ->filter(
-                fn($permission, $key) => !in_array($key, ['name', 'guard_name', 'select_all'])
+                fn ($permission, $key) => ! in_array($key, ['name', 'guard_name', 'select_all'])
                     && Str::contains($key, '-')
             )
             ->keys();
@@ -32,7 +32,7 @@ class EditRole extends EditRecord
 
         $permissions = $this->permissions
             ->reduce(
-                fn($permissions, $permission) => $permissions->push(
+                fn ($permissions, $permission) => $permissions->push(
                     $model::firstOrCreate(
                         ['name' => $permission],
                         ['guard_name' => config('filament.auth.guard')]

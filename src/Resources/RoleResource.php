@@ -41,7 +41,7 @@ class RoleResource extends Resource implements FilamentShield\Contracts\HasPermi
                                     ->required()
                                     ->maxLength(255)
                                     ->afterStateUpdated(
-                                        fn(Closure $set, $state): string => $set('name', Str::lower($state))
+                                        fn (Closure $set, $state): string => $set('name', Str::lower($state))
                                     ),
                                 Forms\Components\TextInput::make('guard_name')
                                     ->label(__('filament-shield::filament-shield.field.guard_name'))
@@ -49,7 +49,7 @@ class RoleResource extends Resource implements FilamentShield\Contracts\HasPermi
                                     ->nullable()
                                     ->maxLength(255)
                                     ->afterStateUpdated(
-                                        fn(Closure $set, $state): string => $set('guard_name', Str::lower($state))
+                                        fn (Closure $set, $state): string => $set('guard_name', Str::lower($state))
                                     ),
                                 Forms\Components\Toggle::make('select_all')
                                     ->onIcon('heroicon-s-shield-check')
@@ -60,7 +60,7 @@ class RoleResource extends Resource implements FilamentShield\Contracts\HasPermi
                                     ->afterStateUpdated(function (Closure $set, $state) {
                                         static::refreshEntitiesStatesViaSelectAll($set, $state);
                                     })
-                                    ->dehydrated(fn($state): bool => $state)
+                                    ->dehydrated(fn ($state): bool => $state)
                             ])
                             ->columns([
                                 'sm' => 2,
@@ -78,7 +78,7 @@ class RoleResource extends Resource implements FilamentShield\Contracts\HasPermi
             ->columns([
                 Tables\Columns\BadgeColumn::make('name')
                     ->label(__('filament-shield::filament-shield.column.name'))
-                    ->formatStateUsing(fn($state): string => Str::headline($state))
+                    ->formatStateUsing(fn ($state): string => Str::headline($state))
                     ->colors(['primary'])
                     ->searchable(),
                 Tables\Columns\BadgeColumn::make('guard_name')

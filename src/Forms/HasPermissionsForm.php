@@ -44,18 +44,18 @@ trait HasPermissionsForm
     protected static function refreshSelectAllStateViaEntities(Closure $set, Closure $get): void
     {
         $states = static::getResourceEntities()
-            ->map(fn($resource, $entity) => (bool)$get($resource::getPermissionPrefix()));
+            ->map(fn ($resource, $entity) => (bool)$get($resource::getPermissionPrefix()));
 
         $states = static::getPageEntities()
-            ->map(fn($page, $entity) => (bool)$get($entity))
+            ->map(fn ($page, $entity) => (bool)$get($entity))
             ->merge($states);
 
         $states = static::getWidgetEntities()
-            ->map(fn($widget, $entity) => (bool)$get($entity))
+            ->map(fn ($widget, $entity) => (bool)$get($entity))
             ->merge($states);
 
         $states = static::getCustomEntities()
-            ->map(fn($name) => (bool)$get($name))
+            ->map(fn ($name) => (bool)$get($name))
             ->merge($states);
 
         if ($states->containsStrict(false) === false) {
@@ -122,7 +122,7 @@ trait HasPermissionsForm
     ): void {
         $permissionStates = collect($resource::permissions())
             ->map(
-                fn($suffix) => (bool)$get($resource::getPermissionName($suffix))
+                fn ($suffix) => (bool)$get($resource::getPermissionName($suffix))
             );
 
         if ($permissionStates->containsStrict(false) === false) {
@@ -157,7 +157,7 @@ trait HasPermissionsForm
 
                 return $entities;
             }, collect())
-            ->groupBy(fn($item) => $item)
+            ->groupBy(fn ($item) => $item)
             ->map
             ->count()
             ->reduce(function ($counts, $counted, $entity) use ($resource) {
@@ -204,13 +204,13 @@ trait HasPermissionsForm
                     })
                     ->reactive()
                     ->afterStateUpdated(function (Closure $set, Closure $get, $state) {
-                        if (!$state) {
+                        if (! $state) {
                             $set('select_all', false);
                         }
 
                         static::refreshSelectAllStateViaEntities($set, $get);
                     })
-                    ->dehydrated(fn($state): bool => $state),
+                    ->dehydrated(fn ($state): bool => $state),
             ])
             ->columns(1)
             ->columnSpan(1);

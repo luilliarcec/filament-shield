@@ -30,7 +30,7 @@ trait PagePermissionsForm
     protected static function getPageEntities(): ?Collection
     {
         return collect(Filament::getPages())
-            ->filter(fn($page) => in_array(HasPermissions::class, class_implements($page)))
+            ->filter(fn ($page) => in_array(HasPermissions::class, class_implements($page)))
             ->reduce(
                 function ($pages, $page) {
                     $name = $page::getPermissionName();
