@@ -38,5 +38,7 @@ return [
         'src',
         'domain',
         'manages',
+        'pages',
+        'filament',
     ]
 ];
