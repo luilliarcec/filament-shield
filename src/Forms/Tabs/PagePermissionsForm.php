@@ -31,6 +31,7 @@ trait PagePermissionsForm
     {
         return collect(Filament::getPages())
             ->filter(fn ($page) => in_array(HasPermissions::class, class_implements($page)))
+            ->sortBy(fn ($page) => $page::getPermissionPrefix())
             ->reduce(
                 function ($pages, $page) {
                     $name = $page::getPermissionName();

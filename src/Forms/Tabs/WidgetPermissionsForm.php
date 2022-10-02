@@ -31,6 +31,7 @@ trait WidgetPermissionsForm
     {
         return collect(Filament::getWidgets())
             ->filter(fn ($widget) => in_array(HasPermissions::class, class_implements($widget)))
+            ->sortBy(fn ($page) => $page::getPermissionPrefix())
             ->reduce(
                 function ($widgets, $widget) {
                     $name = $widget::getPermissionName();
