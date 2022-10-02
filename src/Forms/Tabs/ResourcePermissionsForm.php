@@ -67,15 +67,15 @@ trait ResourcePermissionsForm
         return $resources
             ->reduce(
                 function ($cards, $resource) {
-                    $label = trans()->has(
-                        $key = 'filament-shield::filament-shield.toggles.'.$resource::getResourceName()
-                    )
-                        ? __($key)
+                    $transKey = 'filament-shield::filament-shield.toggles.'.$resource::getResourceName();
+
+                    $label = trans()->has($transKey)
+                        ? __($transKey)
                         : Str::headline($resource::getResourceName());
 
                     $cards[] = Forms\Components\Card::make()
                         ->schema([
-                            Forms\Components\Toggle::make($resource::getModuleResourceName())
+                            Forms\Components\Toggle::make($resource::getPermissionPrefix())
                                 ->onIcon('heroicon-s-lock-open')
                                 ->offIcon('heroicon-s-lock-closed')
                                 ->reactive()
@@ -108,7 +108,7 @@ trait ResourcePermissionsForm
                                 ])
                                 ->schema(
                                     static::getResourceEntityPermissionsSchema(
-                                        $resource::getModuleResourceName(),
+                                        $resource::getPermissionPrefix(),
                                         $resource
                                     )
                                 ),
