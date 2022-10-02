@@ -159,7 +159,7 @@ If you want to add or remove permissions to your resource for generation, you ca
 
 ```php
 use Filament\Resources\Resource;
-use Luilliarcec\FilamentShield\Contracts\HasPermissions
+use Luilliarcec\FilamentShield\Contracts\HasPermissions;
 use Luilliarcec\FilamentShield\Concerns\HasResourcePermissions;
 
 class RoleResource extends Resource implements HasPermissions
