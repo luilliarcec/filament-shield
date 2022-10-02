@@ -48,11 +48,11 @@ trait WidgetPermissionsForm
         return static::getWidgetEntities()
             ->reduce(
                 function ($widgets, $widget, $name) {
-                    $label = trans()->has(
-                        $key = 'filament-shield::filament-shield.checkboxes.widgets.'.$widget::getResourceName()
-                    )
-                        ? __($key)
-                        : Str::headline($widget::getResourceName());
+                    $transKey = 'filament-shield::filament-shield.checkboxes.widgets.'.$widget::getPermissionLabel();
+
+                    $label = trans()->has($transKey)
+                        ? __($transKey)
+                        : Str::headline($widget::getPermissionLabel());
 
                     $widgets[] = static::schemaForNotResourcePermissions($name, $label);
 
