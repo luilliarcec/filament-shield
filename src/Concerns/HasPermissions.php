@@ -37,9 +37,9 @@ trait HasPermissions
 
     public static function getPermissionPrefix(): string
     {
-        $module = static::getModuleName();
+        $module = mb_strtolower(static::getModuleName());
 
-        $resource = static::getResourceName();
+        $resource = mb_strtolower(static::getResourceName());
 
         return $module == null
             ? $resource
