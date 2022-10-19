@@ -2,27 +2,28 @@
 
 namespace Luilliarcec\FilamentShield\Concerns;
 
+use Filament\Pages\Page;
+use Filament\Resources\Resource;
+use Filament\Widgets\Widget;
 use Illuminate\Support\Str;
 
 trait HasPermissions
 {
+    protected static bool $useNavigationGroupAsModule = true;
+
+    protected static int $moduleIndex = 0;
+
     public static function getModuleName(): ?string
     {
-        $labels = array_reverse(explode('\\', static::class));
-
-        array_shift($labels);
-
-        foreach ($labels as $label) {
-            $label = Str::of($label)->snake()->lower();
-
-            if (! in_array($label, config('filament-shield.dont_modules'))) {
-                break;
-            }
-
-            $label = null;
+        if (self::shouldUseNavigationGroupAsModule()) {
+            return static::getNavigationGroup();
         }
 
-        return $label ?? null;
+        $labels = Str::of(static::class)
+            ->replace(static::getEntityNamespace(), '')
+            ->explode('\\');
+
+        return $labels->get(static::$moduleIndex);
     }
 
     public static function getResourceName(): string
@@ -57,5 +58,31 @@ trait HasPermissions
             ->replace('_', ' ')
             ->replace('-', ' - ')
             ->title();
+    }
+
+    protected static function shouldUseNavigationGroupAsModule(): bool
+    {
+        if (! method_exists(static::class, 'getNavigationGroup')) {
+            return false;
+        }
+
+        return static::$useNavigationGroupAsModule && static::getNavigationGroup();
+    }
+
+    protected static function getEntityNamespace(): ?string
+    {
+        if (is_subclass_of(static::class, Resource::class)) {
+            return config('filament.resources.namespace').'\\';
+        }
+
+        if (is_subclass_of(static::class, Page::class)) {
+            return config('filament.pages.namespace').'\\';
+        }
+
+        if (is_subclass_of(static::class, Widget::class)) {
+            return config('filament.widgets.namespace').'\\';
+        }
+
+        return null;
     }
 }
