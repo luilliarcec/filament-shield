@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 
 trait CustomPermissionsForm
 {
+    protected static Collection|null $customPermissions = null;
+
     protected static function getCustomPermissionTabs(): array
     {
         return [
@@ -49,8 +51,9 @@ trait CustomPermissionsForm
 
         $model = config('permission.models.permission');
 
-        return $model::query()
+        return static::$customPermissions ??= $model::query()
             ->whereNotIn('name', $permissions)
+            ->get('name')
             ->pluck('name');
     }
 
