@@ -86,7 +86,7 @@ trait HasPermissionsForm
      */
     protected static function refreshEntitiesStatesViaSelectAll(Closure $set, $state): void
     {
-        if (config('filament-shield.entities.pages')) {
+        if (config('filament-shield.entities.resources')) {
             static::getResourceEntities()->each(function ($resource, $entity) use ($set, $state) {
                 $set($resource::getPermissionPrefix(), $state);
 
