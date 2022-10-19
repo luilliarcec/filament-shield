@@ -19,14 +19,7 @@ class RoleResource extends Resource implements FilamentShield\Contracts\HasPermi
 
     protected static ?int $navigationSort = -1;
 
-    protected static ?string $slug = 'shield/roles';
-
     protected static ?string $recordTitleAttribute = 'name';
-
-    public static function getModel(): string
-    {
-        return config('permission.models.role');
-    }
 
     public static function form(Form $form): Form
     {
@@ -106,29 +99,24 @@ class RoleResource extends Resource implements FilamentShield\Contracts\HasPermi
         ];
     }
 
-    public static function getLabel(): string
+    public static function getModel(): string
+    {
+        return config('permission.models.role');
+    }
+
+    public static function getModelLabel(): string
     {
         return __('filament-shield::filament-shield.resource.label.role');
     }
 
-    public static function getPluralLabel(): string
+    public static function getPluralModelLabel(): string
     {
         return __('filament-shield::filament-shield.resource.label.roles');
     }
 
-    protected static function getNavigationGroup(): ?string
+    public static function getSlug(): string
     {
-        return __('filament-shield::filament-shield.nav.group');
-    }
-
-    protected static function getNavigationLabel(): string
-    {
-        return __('filament-shield::filament-shield.nav.role.label');
-    }
-
-    protected static function getNavigationIcon(): string
-    {
-        return __('filament-shield::filament-shield.nav.role.icon');
+        return static::$slug ?? 'shield/roles';
     }
 
     public static function permissions(): array
