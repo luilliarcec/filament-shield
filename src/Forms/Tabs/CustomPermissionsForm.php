@@ -12,9 +12,12 @@ trait CustomPermissionsForm
 
     protected static function getCustomPermissionTabs(): array
     {
+        if (! config('filament-shield.entities.custom_permissions')) {
+            return [];
+        }
+
         return [
             Forms\Components\Tabs\Tab::make(__('filament-shield::filament-shield.tabs.custom'))
-                ->visible(static::getCustomEntities()->isNotEmpty())
                 ->reactive()
                 ->schema([
                     Forms\Components\Grid::make()

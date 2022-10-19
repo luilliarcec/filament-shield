@@ -3,6 +3,16 @@
 use Luilliarcec\FilamentShield\Resources;
 
 return [
+    /**
+     * Enables or disables the entities that map permissions.
+     */
+    'entities' => [
+        'pages' => true,
+        'widgets' => true,
+        'resources' => true,
+        'custom_permissions' => false,
+    ],
+
     /*
      * Predefined resource to handle system roles, you can replace it with your own.
      */

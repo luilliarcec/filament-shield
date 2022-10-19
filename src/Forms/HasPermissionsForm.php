@@ -44,7 +44,11 @@ trait HasPermissionsForm
     protected static function refreshSelectAllStateViaEntities(Closure $set, Closure $get): void
     {
         $states = static::getResourceEntities()
-            ->map(fn ($resource, $entity) => (bool)$get($resource::getPermissionPrefix()));
+            ->map(fn ($resource, $entity) => (bool)$get($resource::getPermissionPrefix()))
+            ->when(
+                config('filament-shield.entities.custom_permissions'),
+                fn ($states) => $states->merge(static::getCustomEntities()->map(fn ($name) => (bool)$get($name)))
+            );
 
         $states = static::getPageEntities()
             ->map(fn ($page, $entity) => (bool)$get($entity))
@@ -52,10 +56,6 @@ trait HasPermissionsForm
 
         $states = static::getWidgetEntities()
             ->map(fn ($widget, $entity) => (bool)$get($entity))
-            ->merge($states);
-
-        $states = static::getCustomEntities()
-            ->map(fn ($name) => (bool)$get($name))
             ->merge($states);
 
         if ($states->containsStrict(false) === false) {
@@ -98,10 +98,11 @@ trait HasPermissionsForm
                 $set($entity, $state);
             });
 
-        static::getCustomEntities()
-            ->each(function ($name) use ($set, $state) {
+        if (config('filament-shield.entities.custom_permissions')) {
+            static::getCustomEntities()->each(function ($name) use ($set, $state) {
                 $set($name, $state);
             });
+        }
     }
 
     /**
