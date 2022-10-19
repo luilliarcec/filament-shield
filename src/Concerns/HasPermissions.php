@@ -16,7 +16,7 @@ trait HasPermissions
     public static function getModuleName(): ?string
     {
         if (self::shouldUseNavigationGroupAsModule()) {
-            return static::getNavigationGroup();
+            return Str::of(static::getNavigationGroup())->slug('_');
         }
 
         $labels = Str::of(static::class)
