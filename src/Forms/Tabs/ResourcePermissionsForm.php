@@ -29,6 +29,10 @@ trait ResourcePermissionsForm
      */
     public static function getResourceTabs(): array
     {
+        if (! config('filament-shield.entities.resources')) {
+            return [];
+        }
+
         return static::getResourceEntities()
             ->groupBy(fn ($resource) => $resource::getModuleName())
             ->reduce(

@@ -43,20 +43,29 @@ trait HasPermissionsForm
      */
     protected static function refreshSelectAllStateViaEntities(Closure $set, Closure $get): void
     {
-        $states = static::getResourceEntities()
-            ->map(fn ($resource, $entity) => (bool)$get($resource::getPermissionPrefix()))
-            ->when(
-                config('filament-shield.entities.custom_permissions'),
-                fn ($states) => $states->merge(static::getCustomEntities()->map(fn ($name) => (bool)$get($name)))
+        $states = collect()
+            ->when(config('filament-shield.entities.resources'), fn ($states) => $states
+                ->merge(
+                    static::getResourceEntities()->map(
+                        fn ($resource, $entity) => (bool)$get($resource::getPermissionPrefix())
+                    )
+                )
+            )
+            ->when(config('filament-shield.entities.pages'), fn ($states) => $states
+                ->merge(
+                    static::getPageEntities()->map(fn ($page, $entity) => (bool)$get($entity))
+                )
+            )
+            ->when(config('filament-shield.entities.widgets'), fn ($states) => $states
+                ->merge(
+                    static::getWidgetEntities()->map(fn ($widget, $entity) => (bool)$get($entity))
+                )
+            )
+            ->when(config('filament-shield.entities.custom_permissions'), fn ($states) => $states
+                ->merge(
+                    static::getCustomEntities()->map(fn ($name) => (bool)$get($name))
+                )
             );
-
-        $states = static::getPageEntities()
-            ->map(fn ($page, $entity) => (bool)$get($entity))
-            ->merge($states);
-
-        $states = static::getWidgetEntities()
-            ->map(fn ($widget, $entity) => (bool)$get($entity))
-            ->merge($states);
 
         if ($states->containsStrict(false) === false) {
             $set('select_all', true);
@@ -77,8 +86,8 @@ trait HasPermissionsForm
      */
     protected static function refreshEntitiesStatesViaSelectAll(Closure $set, $state): void
     {
-        static::getResourceEntities()
-            ->each(function ($resource, $entity) use ($set, $state) {
+        if (config('filament-shield.entities.pages')) {
+            static::getResourceEntities()->each(function ($resource, $entity) use ($set, $state) {
                 $set($resource::getPermissionPrefix(), $state);
 
                 collect($resource::permissions())->each(
@@ -87,16 +96,19 @@ trait HasPermissionsForm
                     }
                 );
             });
+        }
 
-        static::getPageEntities()
-            ->each(function ($page, $entity) use ($set, $state) {
+        if (config('filament-shield.entities.pages')) {
+            static::getPageEntities()->each(function ($page, $entity) use ($set, $state) {
                 $set($entity, $state);
             });
+        }
 
-        static::getWidgetEntities()
-            ->each(function ($widget, $entity) use ($set, $state) {
+        if (config('filament-shield.entities.widgets')) {
+            static::getWidgetEntities()->each(function ($widget, $entity) use ($set, $state) {
                 $set($entity, $state);
             });
+        }
 
         if (config('filament-shield.entities.custom_permissions')) {
             static::getCustomEntities()->each(function ($name) use ($set, $state) {

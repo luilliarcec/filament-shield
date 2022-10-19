@@ -5,13 +5,16 @@ namespace Luilliarcec\FilamentShield\Forms\Tabs;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Luilliarcec\FilamentShield\Contracts\HasPermissions;
 
 trait PagePermissionsForm
 {
     protected static function getPageTabs(): array
     {
+        if (! config('filament-shield.entities.pages')) {
+            return [];
+        }
+
         return [
             Forms\Components\Tabs\Tab::make(__('filament-shield::filament-shield.tabs.pages'))
                 ->visible(static::getPageEntities()->isNotEmpty())

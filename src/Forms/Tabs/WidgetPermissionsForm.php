@@ -5,13 +5,16 @@ namespace Luilliarcec\FilamentShield\Forms\Tabs;
 use Filament\Facades\Filament;
 use Filament\Forms;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Luilliarcec\FilamentShield\Contracts\HasPermissions;
 
 trait WidgetPermissionsForm
 {
     protected static function getWidgetTabs(): array
     {
+        if (! config('filament-shield.entities.widgets')) {
+            return [];
+        }
+
         return [
             Forms\Components\Tabs\Tab::make(__('filament-shield::filament-shield.tabs.widgets'))
                 ->visible(static::getWidgetEntities()->isNotEmpty())
