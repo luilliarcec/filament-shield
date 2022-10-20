@@ -91,6 +91,7 @@ class ShieldPolicyMakeCommands extends PolicyMakeCommand
         return [
             ['model', 'm', InputOption::VALUE_REQUIRED, 'The model that the policy applies to'],
             ['resource', 'r', InputOption::VALUE_REQUIRED, 'The resource that contains the permissions'],
+            ['force', 'force', InputOption::VALUE_OPTIONAL, 'Force override of policies'],
         ];
     }
 

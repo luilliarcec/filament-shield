@@ -9,7 +9,7 @@ use Luilliarcec\FilamentShield\ShieldFactory;
 
 class ShieldPermissionsMakeCommand extends Command
 {
-    public $signature = 'shield:generate';
+    public $signature = 'shield:generate {--force}';
 
     public $description = '(Re)Discovers Filament resources and (re)generates Permissions and Policies.';
 
@@ -43,6 +43,7 @@ class ShieldPermissionsMakeCommand extends Command
             'name' => class_basename($model).'Policy',
             '--model' => '/'.str_replace('\\', '/', $model),
             '--resource' => $resource,
+            '--force' => $this->option('force')
         ]);
 
         ShieldFactory::generatePermissions($resource);
