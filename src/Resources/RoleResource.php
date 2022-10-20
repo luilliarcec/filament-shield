@@ -106,12 +106,12 @@ class RoleResource extends Resource implements FilamentShield\Contracts\HasPermi
 
     public static function getModelLabel(): string
     {
-        return __('filament-shield::filament-shield.resource.label.role');
+        return __('Role');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('filament-shield::filament-shield.resource.label.roles');
+        return __('Roles');
     }
 
     public static function getSlug(): string
