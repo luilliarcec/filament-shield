@@ -38,13 +38,13 @@ trait HasPermissions
 
     public static function getPermissionPrefix(): string
     {
-        $module = mb_strtolower(static::getModuleName());
+        $module = static::getModuleName();
 
         $resource = mb_strtolower(static::getResourceName());
 
         return $module == null
             ? $resource
-            : sprintf('%s-%s', $module, $resource);
+            : sprintf('%s-%s', mb_strtolower($module), $resource);
     }
 
     public static function getPermissionName(?string $suffix = null): string
