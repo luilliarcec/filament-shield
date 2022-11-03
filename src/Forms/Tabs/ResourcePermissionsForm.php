@@ -138,11 +138,15 @@ trait ResourcePermissionsForm
     {
         return collect($resource::permissions())
             ->reduce(
-                function ($checkboxes, $suffix) use ($entity, $resource) {
+                function ($checkboxes, $suffix, $label) use ($entity, $resource) {
                     $permission = $resource::getPermissionName($suffix);
 
+                    $label = is_string($label)
+                        ? $label
+                        : __('filament-shield::filament-shield.checkboxes.resources.'.$suffix);
+
                     $checkboxes[] = Forms\Components\Checkbox::make($permission)
-                        ->label(__('filament-shield::filament-shield.checkboxes.resources.'.$suffix))
+                        ->label($label)
                         ->extraAttributes(['class' => 'text-primary-600'])
                         ->afterStateHydrated(
                             function (Closure $set, Closure $get, $record) use ($permission, $entity, $resource) {
